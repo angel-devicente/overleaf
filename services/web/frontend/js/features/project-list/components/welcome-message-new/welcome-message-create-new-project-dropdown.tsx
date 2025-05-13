@@ -16,11 +16,12 @@ import createNewProjectImage from '../../images/create-a-new-project.svg'
 const CustomDropdownToggle = forwardRef<
   HTMLButtonElement,
   React.ComponentProps<'button'>
->(({ onClick, 'aria-expanded': ariaExpanded }, ref) => {
+>(({ onClick, 'aria-expanded': ariaExpanded, disabled, ...rest }, ref) => {
   const { t } = useTranslation()
 
   const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault()
+    if (disabled) return // Prevent action if disabled
     onClick?.(e)
 
     sendMB('welcome-page-create-first-project-click', {
@@ -37,6 +38,8 @@ const CustomDropdownToggle = forwardRef<
       id="create-new-project-dropdown-button"
       aria-expanded={ariaExpanded}
       aria-haspopup="true"
+      disabled={disabled} // <-- Add this line
+      {...rest}
     >
       <span>{t('create_a_new_project')}</span>
       <img
@@ -58,6 +61,7 @@ function WelcomeMessageCreateNewProjectDropdown({
   setActiveModal,
 }: WelcomeMessageCreateNewProjectDropdownProps) {
   const { t } = useTranslation()
+  const user = getMeta('ol-user')	  
   const portalTemplates = getMeta('ol-portalTemplates') || []
 
   const { isOverleaf } = getMeta('ol-ExposedSettings')
@@ -99,6 +103,7 @@ function WelcomeMessageCreateNewProjectDropdown({
       <DropdownToggle
         as={CustomDropdownToggle}
         id="create-new-project-dropdown-toggle-btn"
+	disabled={!user.email.includes('iac.es')}
       />
       <DropdownMenu flip={false} className="create-new-project-dropdown">
         <li role="none">

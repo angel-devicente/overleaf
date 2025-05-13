@@ -52,6 +52,7 @@ function NewProjectButton({
 }: NewProjectButtonProps) {
   const { t } = useTranslation()
   const { templateLinks } = getMeta('ol-ExposedSettings')
+  const user = getMeta('ol-user')	
   const [modal, setModal] =
     useState<Nullable<NewProjectButtonModalVariant>>(null)
   const portalTemplates = getMeta('ol-portalTemplates') || []
@@ -168,6 +169,7 @@ function NewProjectButton({
           id={id}
           className="new-project-button"
           variant="primary"
+	  disabled={!user.email.includes('iac.es')}
         >
           {buttonText || t('new_project')}
         </DropdownToggle>
