@@ -48,9 +48,8 @@ function AccountInfoSection() {
     setLastName(event.target.value)
   }
 
-  const canUpdateEmail =
-    !hasAffiliationsFeature && !isExternalAuthenticationSystemUsed
-  const canUpdateNames = shouldAllowEditingDetails
+  const canUpdateEmail = false
+  const canUpdateNames = false
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
