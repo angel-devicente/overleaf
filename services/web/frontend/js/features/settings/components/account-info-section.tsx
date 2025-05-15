@@ -49,7 +49,7 @@ function AccountInfoSection() {
   }
 
   const canUpdateEmail = false
-  const canUpdateNames = false
+  const canUpdateNames = shouldAllowEditingDetails
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
